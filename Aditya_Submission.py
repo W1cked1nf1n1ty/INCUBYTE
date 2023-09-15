@@ -1,3 +1,44 @@
+import unittest
+
+
+class TestSpacecraft(unittest.TestCase):
+    def test_spacecraft_initial_position(self):
+        spacecraft = Spacecraft()
+        self.assertEqual(spacecraft.position, [0, 0, 0])
+        self.assertEqual(spacecraft.direction, 'N')
+
+    def test_spacecraft_move_forward(self):
+        spacecraft = Spacecraft()
+        spacecraft.move('f')
+        self.assertEqual(spacecraft.position, [0, 1, 0])
+        self.assertEqual(spacecraft.direction, 'N')
+
+    def test_spacecraft_move_backward(self):
+        spacecraft = Spacecraft()
+        spacecraft.move('b')
+        self.assertEqual(spacecraft.position, [0, -1, 0])
+        self.assertEqual(spacecraft.direction, 'N')
+
+    def test_spacecraft_rotate_right(self):
+        spacecraft = Spacecraft()
+        spacecraft.rotate('r')
+        self.assertEqual(spacecraft.position, [0, 0, 0])
+        self.assertEqual(spacecraft.direction, 'E')
+
+    def test_spacecraft_rotate_left(self):
+        spacecraft = Spacecraft()
+        spacecraft.rotate('l')
+        self.assertEqual(spacecraft.position, [0, 0, 0])
+        self.assertEqual(spacecraft.direction, 'W')
+
+    def test_spacecraft_execute_commands(self):
+        spacecraft = Spacecraft()
+        commands = ["f", "r", "u", "b", "l"]
+        spacecraft.execute_commands(commands)
+        self.assertEqual(spacecraft.position, [0, 1, -1])
+        self.assertEqual(spacecraft.direction, 'N')
+
+
 class Spacecraft:
     def __init__(self):
         self.position = [0, 0, 0]
@@ -55,11 +96,4 @@ class Spacecraft:
 
 
 if __name__ == "__main__":
-    spacecraft = Spacecraft()
-    commands = ["f", "r", "u", "b", "l"]
-    spacecraft.execute_commands(commands)
-    final_position = spacecraft.get_position()
-    final_direction = spacecraft.get_direction()
-
-    print("Final Position:", final_position)
-    print("Final Direction:", final_direction)
+    unittest.main()
